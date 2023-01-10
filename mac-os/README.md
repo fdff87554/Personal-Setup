@@ -6,6 +6,7 @@
 ## Terminal
 * `iterm2`
 * `Hyper`: `brew install --cask hyper`
+  * Solarized Dark Themes: `hyper i hyper-solarized-dark`
 
 ## Look
 * Color: `Solarized Dark Higher Contrast`
