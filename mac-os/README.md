@@ -71,6 +71,15 @@
 * `OpenVPN`
 * `WireGuard`
 
+### Project Management
+* `Trello`
+* `Asana`
+
+### Notes
+* `Obsidian`
+* `Notion`
+* `Hackmd` (Web)
+
 ## Virtual Machine
 * `Lima`
 
