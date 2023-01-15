@@ -34,25 +34,25 @@
 
 ## Terminal Settings
 
-## brew
+### brew
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 
-## Terminal
+### Terminal
 * `iterm2`
 * `Hyper`: `brew install --cask hyper`
   * Solarized Dark Themes: `hyper i hyper-solarized-dark`
 
-## Look
+### Look
 * Color: `Solarized Dark Higher Contrast`
 * https://github.com/romkatv/powerlevel10k
 * font setup the recommand of powerlevel10k
 
-## ZSH shell + oh-my-zsh
+### ZSH shell + oh-my-zsh
 * https://github.com/ohmyzsh/ohmyzsh
 * https://github.com/zsh-users/zsh-syntax-highlighting
 * https://github.com/zsh-users/zsh-autosuggestions
 
-## Languages
+### Languages
 * C/C++: xcode
 * Java JDK: `adoptium`
 * Python: 3.10 (2023/01/10 Pytorch is up to python 3.10)
