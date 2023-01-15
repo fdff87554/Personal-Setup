@@ -1,4 +1,38 @@
-# Terminal Settings
+# Personal Mac OS Setup
+
+## System Settings
+
+### General
+
+#### AirDrop and Handoff
+> ![AirDrop Setup](../images/mac-os/airdrop.png)
+
+#### Sharing
+> ![Sharing Setup](../images/mac-os/sharing.png)
+
+### Appearance
+> ![Appearance Setup](../images/mac-os/appearance.png)
+* Important Settings:
+  * appearance: `Dark`
+  * sidebar icon size: `Medium`
+  * allow wallpaper tinting: `Checked`
+  * show scroll bars: `Always`
+  * click in the scroll bar to: `Jump to the spot that's clicked`
+
+### Accessibility
+* Important Settings:
+  * Zoom: Use scroll gesture with modifier keys to zoom: `Checked`, `Control`
+
+### Desktop & Dock
+> ![Desktop & Dock Setup](../images/mac-os/desktop-dock.png)
+* Hot Corners:
+  * Bottom left: `Send Display to Sleep`
+  * Bottom right: `Default`
+
+### Lock Screen
+> ![Lock Screen Setup](../images/mac-os/lock-screen.png)
+
+## Terminal Settings
 
 ## brew
 `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
