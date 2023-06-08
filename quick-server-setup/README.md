@@ -15,7 +15,7 @@
 - Get the script and run it.
   ```bash
   # get the script
-  curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/tools/quick-server-setup/quick-server-setup.sh -o ~/quick-server-setup.sh
+  curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-server-setup/quick-server-setup.sh -o ~/quick-server-setup.sh
   # run the script
   sudo sh quick-server-setup.sh
   ```
