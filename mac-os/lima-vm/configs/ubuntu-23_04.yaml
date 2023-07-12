@@ -4,10 +4,10 @@ images:
 # Try to use release-yyyyMMdd image if available. Note that release-yyyyMMdd will be removed after several months.
 - location: "https://cloud-images.ubuntu.com/releases/23.04/release-20230711/ubuntu-23.04-server-cloudimg-amd64.img"
   arch: "x86_64"
-  digest: "sha256:b9a5a216901c34742ffe662b691db114269aaa25c90eb77f3ef4dd4f818e78a3"
+  digest: "sha256:4cce9d969bf9c99b1b0b37ce2da9bfdd78f2c0b17314a29e9bfbeffed84cf9fd"
 - location: "https://cloud-images.ubuntu.com/releases/23.04/release-20230711/ubuntu-23.04-server-cloudimg-arm64.img"
   arch: "aarch64"
-  digest: "sha256:b27163374c834c770e8db023fb21205529cea494257bf5ba866b8b1ae5969164"
+  digest: "sha256:2414e73c07688bd8e760031562ae70ea3dcd54f02baf2357ade04602e5a4638a"
 # Fallback to the latest release image.
 # Hint: run `limactl prune` to invalidate the cache
 - location: "https://cloud-images.ubuntu.com/releases/23.04/release/ubuntu-23.04-server-cloudimg-amd64.img"
