@@ -4,7 +4,7 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
 
 # Create docker group and add current user into it
-sudo groupadd docker
+# sudo groupadd docker # Not need if install by docker script
 sudo usermod -aG docker $USER
 newgrp docker
 
