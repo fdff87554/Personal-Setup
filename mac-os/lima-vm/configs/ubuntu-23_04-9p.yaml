@@ -15,6 +15,19 @@ images:
 - location: "https://cloud-images.ubuntu.com/releases/23.04/release/ubuntu-23.04-server-cloudimg-arm64.img"
   arch: "aarch64"
 
+# CPUs
+# 🟢 Builtin default: min(4, host CPU cores)
+cpus: 4
+
+# Memory size
+# 🟢 Builtin default: min("4GiB", half of host memory)
+memory: "4GiB"
+
+# Disk size
+# 🟢 Builtin default: "100GiB"
+disk: "100GiB"
+
+
 mountType: "9p"
 mounts:
 - location: "~"
