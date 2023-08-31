@@ -20,5 +20,6 @@
     * e.g. `git remote rename origin github`
 * Remove remote repositories - `git remote rm <repo_name>`
     * e.g. `git remote rm github`
+* Remove non-existing remote branches - `git fetch -p`
 
 
