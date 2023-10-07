@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Export command from sbin to path in .bashrc
+echo "Exporting command from sbin to path in .bashrc..."
+echo "export PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin" >>~/.bashrc
+export PATH=$PATH:/usr/sbin
+
 # Basic setup for a Debian server running YOURLS
 echo "Basic setup for a Debian server running YOURLS"
 
@@ -22,7 +27,12 @@ sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh
 sudo sed -i 's/#PubkeyAuthentication no/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
 # - Add public key into authorized_keys
 curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/ssh/id_rsa.pub -o ~/crazyfire_id_rsa.pub
-cat ~/crazyfire_id_rsa.pub >> ~/.ssh/authorized_keys
+# - Create .ssh folder if not exist
+if [ ! -d ~/.ssh ]; then
+    mkdir ~/.ssh
+    touch ~/.ssh/authorized_keys
+fi
+cat ~/crazyfire_id_rsa.pub >>~/.ssh/authorized_keys
 rm ~/crazyfire_id_rsa.pub
 
 sudo systemctl restart ssh
@@ -36,6 +46,7 @@ rm ~/git.sh
 # Setup vim if needed
 echo "Setting up vim..."
 curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/vim/.vimrc -o ~/.vimrc
+sudo curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/vim/.vimrc -o /root/.vimrc
 
 # Setup tmux if needed
 echo "Setting up tmux..."
