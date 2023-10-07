@@ -14,7 +14,7 @@ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 
 # Install need packages, and install docker
 echo "Installing git, vim, curl, wget, tmux, ssh-server..."
-sudo apt install -y git vim curl wget tmux openssh-server
+sudo apt install -y git vim curl wget tmux openssh-server snapd
 
 # Setup ssh server
 echo "Setting up ssh server..."
@@ -60,3 +60,12 @@ sh get-docker.sh
 sudo usermod -aG docker $USER
 newgrp docker
 rm get-docker.sh
+
+# Install Certbot
+echo "Installing certbot..."
+# - Install snapd
+sudo apt install snapd -y
+# - Install certbot
+sudo snap install --classic certbot
+# - Prepare the Certbot command
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
