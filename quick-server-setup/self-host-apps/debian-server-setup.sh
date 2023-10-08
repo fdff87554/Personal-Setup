@@ -67,18 +67,3 @@ printf "\naddress 192.168.50.200" | sudo tee -a /etc/network/interfaces
 printf "\nnetmask 255.255.255.0" | sudo tee -a /etc/network/interfaces
 printf "\ngateway 192.168.50.254" | sudo tee -a /etc/network/interfaces
 printf "\ndns-nameservers 192.168.51.53" | sudo tee -a /etc/network/interfaces
-
-# Setup Certbot
-sudo apt install snapd -y
-# - Run test
-sudo snap install hello-world
-hello-world
-
-# Remove certbot-auto and any Certbot OS packages
-sudo apt-get remove certbot # to mack sure when running certbot is on snapd
-
-# Install Certbot
-sudo snap install --classic certbot
-
-# Prepare Certbot
-sudo ln -s /snap/bin/certbot /usr/bin/certbot

@@ -1,0 +1,76 @@
+services:
+  yourls:
+    image: yourls:1.9.2-apache
+    hostname: yourls
+    container_name: yourls
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    expose:
+      - 80:80
+    environment:
+      - YOURLS_DB_USER=yourls
+      - YOURLS_DB_PASS=yourls
+      - YOURLS_DB_NAME=yourls
+      - YOURLS_DB_HOST=yourls-db
+      - YOURLS_SITE=https://links.crazyfirelee.tw
+      - YOURLS_USER=admin
+      - YOURLS_PASS=admin
+    depends_on:
+      - yourls-db
+    platform: linux/amd64
+
+  yourls-db:
+    image: mariadb:10.9.8
+    hostname: yourls-db
+    container_name: yourls-db
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=yourls
+      - MYSQL_DATABASE=yourls
+      - MYSQL_USER=yourls
+      - MYSQL_PASSWORD=yourls
+    volumes:
+      - ./yourls-db/data:/var/lib/mysql
+      - ./yourls-db/backup:/var/backup
+    platform: linux/amd64
+
+  qrcode-generator:
+    image: bizzycolah/qrcode-generator:latest
+    hostname: qrcode-generator
+    container_name: qrcode-generator
+    restart: unless-stopped
+    ports:
+      - 8081:80
+    expose:
+      - 80:80
+    platform: linux/amd64
+
+  nginx:
+    image: nginx:1.25.2-alpine
+    hostname: nginx-proxy
+    container_name: nginx-proxy
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - /etc/letsencrypt:/etc/letsencrypt
+      - ./certbot:/var/www/certbot
+    depends_on:
+      - yourls
+      - qrcode-generator
+    platform: linux/amd64
+
+  certbot:
+    image: certbot/certbot:latest
+    hostname: certbot
+    container_name: certbot
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
+      - ./certbot:/var/www/certbot
+    command: certonly --webroot --webroot-path=/var/www/certbot --email test@crazyfirelee.tw -d links.crazyfirelee.tw -d qrcode.crazyfirelee.tw --agree-tos --no-eff-email
+    depends_on:
+      - nginx
