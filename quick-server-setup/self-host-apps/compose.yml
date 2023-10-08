@@ -50,7 +50,7 @@ services:
     image: nginx:1.25.2-alpine
     hostname: nginx-proxy
     container_name: nginx-proxy
-    restart: unless-stopped
+    restart: on-failure
     ports:
       - 80:80
       - 443:443
@@ -67,10 +67,11 @@ services:
     image: certbot/certbot:latest
     hostname: certbot
     container_name: certbot
+    restart: on-failure
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/lib/letsencrypt:/var/lib/letsencrypt
       - ./certbot:/var/www/certbot
-    command: certonly --webroot --webroot-path=/var/www/certbot --email test@crazyfirelee.tw -d links.crazyfirelee.tw -d qrcode.crazyfirelee.tw --agree-tos --no-eff-email
+    command: sh -c "certonly --webroot --webroot-path=/var/www/certbot --email test@crazyfirelee.tw -d links.crazyfirelee.tw --agree-tos --no-eff-email ; certonly --webroot --webroot-path=/var/www/certbot --email test@crazyfirelee.tw -d qrcode.crazyfirelee.tw --agree-tos --no-eff-email"
     depends_on:
       - nginx
