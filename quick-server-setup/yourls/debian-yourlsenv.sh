@@ -87,4 +87,4 @@ mkdir ~/yourls
 mkdir -p ~/yourls/nginx/conf.d
 cd ~/yourls || exit
 curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-server-setup/yourls/compose.yml -o ~/yourls/compose.yml
-curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-server-setup/yourls/nginx/conf.d/yourls.conf -o ~/yourls/nginx/conf.d/yourls.conf
+curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-server-setup/yourls/nginx/conf.d/default.conf -o ~/yourls/nginx/conf.d/default.conf
