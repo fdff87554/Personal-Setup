@@ -5,13 +5,12 @@ services:
     container_name: yourls
     restart: unless-stopped
     ports:
-      - 80:80
-      # - 443:443
+      - 8080:80
     volumes:
       - ./yourls:/var/www/html
     environment:
       YOURLS_DB_PASS: langyun_yourls
-      YOURLS_SITE: http://short.crazyfirelee.tw:8080
+      YOURLS_SITE: https://short.crazyfirelee.tw
       YOURLS_USER: langyun
       YOURLS_PASS: langyun_yourls
     depends_on:
@@ -48,19 +47,19 @@ services:
       - yourls
     platform: linux/amd64
   
-  # nginx:
-  #   image: nginx:1.25.2-alpine
-  #   hostname: nginx
-  #   container_name: nginx
-  #   restart: unless-stopped
-  #   volumes:
-  #     - ./nginx/conf.d:/etc/nginx/conf.d
-  #     - ./certbot/conf:/etc/letsencrypt
-  #     - ./yourls:/var/www/html
-  #   ports:
-  #     - 80:80
-  #     - 443:443
-  #   depends_on:
-  #     - yourls
-  #     - certbot
-  #   platform: linux/amd64
+  nginx:
+    image: nginx:1.25.2-alpine
+    hostname: nginx
+    container_name: nginx
+    restart: unless-stopped
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./certbot/conf:/etc/letsencrypt
+      - ./yourls:/var/www/html
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - yourls
+      - certbot
+    platform: linux/amd64
