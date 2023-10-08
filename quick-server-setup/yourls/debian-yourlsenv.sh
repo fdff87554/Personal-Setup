@@ -59,7 +59,7 @@ tmux source-file ~/.tmux.conf
 echo "Setting up docker..."
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
-sudo usermod -aG docker $USER
+sudo usermod -aG docker "$USER"
 newgrp docker
 rm get-docker.sh
 
