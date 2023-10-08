@@ -83,7 +83,6 @@ printf "\ndns-nameservers 192.168.51.53" | sudo tee -a /etc/network/interfaces
 
 # Pull Need files
 echo "Pulling need files..."
-mkdir ~/yourls
 mkdir -p ~/yourls/nginx/conf.d
 cd ~/yourls || exit
 curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-server-setup/yourls/compose.yml -o ~/yourls/compose.yml

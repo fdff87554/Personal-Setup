@@ -5,7 +5,7 @@ services:
     container_name: yourls
     restart: unless-stopped
     ports:
-      - 8080:80
+      - 80:80
       # - 443:443
     volumes:
       - ./yourls:/var/www/html
@@ -48,19 +48,19 @@ services:
       - yourls
     platform: linux/amd64
   
-  nginx:
-    image: nginx:1.25.2-alpine
-    hostname: nginx
-    container_name: nginx
-    restart: unless-stopped
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./certbot/conf:/etc/letsencrypt
-      - ./yourls:/var/www/html
-    ports:
-      - 80:80
-      - 443:443
-    depends_on:
-      - yourls
-      - certbot
-    platform: linux/amd64
+  # nginx:
+  #   image: nginx:1.25.2-alpine
+  #   hostname: nginx
+  #   container_name: nginx
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./nginx/conf.d:/etc/nginx/conf.d
+  #     - ./certbot/conf:/etc/letsencrypt
+  #     - ./yourls:/var/www/html
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   depends_on:
+  #     - yourls
+  #     - certbot
+  #   platform: linux/amd64
