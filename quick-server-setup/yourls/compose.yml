@@ -1,0 +1,50 @@
+services:
+  yourls:
+    image: yourls:1.9.2-apache
+    hostname: yourls
+    container_name: yourls
+    restart: unless-stopped
+    ports:
+      - 8080:80
+      # - 443:443
+    volumes:
+      - ./yourls:/var/www/html
+    environment:
+      YOURLS_DB_PASS: langyun_yourls
+      YOURLS_SITE: http://short.crazyfirelee.tw:8080
+      YOURLS_USER: langyun
+      YOURLS_PASS: langyun_yourls
+    depends_on:
+      - mysql
+    platform: linux/amd64
+
+  mysql:
+    image: mysql:8.1.0
+    hostname: mysql
+    container_name: mysql
+    restart: unless-stopped
+    volumes:
+      # - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/data:/var/lib/mysql
+      - ./database/backup:/backup
+    environment:
+      MYSQL_ROOT_PASSWORD: langyun_yourls
+      MYSQL_DATABASE: yourls
+    ports:
+      - 3306:3306
+    platform: linux/amd64
+
+  # certbot:
+  #   image: certbot/certbot
+  #   hostname: certbot
+  #   container_name: certbot
+  #   # restart: unless-stopped
+  #   volumes:
+  #     - ./certbot/conf:/etc/letsencrypt
+  #     - ./yourls:/var/www/certbot
+  #   ports:
+  #     - 8080:80
+  #   command: certonly --webroot --webroot-path=/var/www/certbot --email test@crazyfirelee.tw --agree-tos --no-eff-email --staging -d short.crazyfirelee.tw
+  #   depends_on:
+  #     - yourls
+  #   platform: linux/amd64
