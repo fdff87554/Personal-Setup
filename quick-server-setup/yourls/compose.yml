@@ -34,17 +34,33 @@ services:
       - 3306:3306
     platform: linux/amd64
 
-  # certbot:
-  #   image: certbot/certbot
-  #   hostname: certbot
-  #   container_name: certbot
-  #   # restart: unless-stopped
-  #   volumes:
-  #     - ./certbot/conf:/etc/letsencrypt
-  #     - ./yourls:/var/www/certbot
-  #   ports:
-  #     - 8080:80
-  #   command: certonly --webroot --webroot-path=/var/www/certbot --email test@crazyfirelee.tw --agree-tos --no-eff-email --staging -d short.crazyfirelee.tw
-  #   depends_on:
-  #     - yourls
-  #   platform: linux/amd64
+  certbot:
+    image: certbot/certbot
+    hostname: certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./yourls:/var/www/certbot
+    ports:
+      - 8081:80
+    command: certonly --webroot --webroot-path=/var/www/certbot --email test@crazyfirelee.tw --agree-tos --no-eff-email --staging -d short.crazyfirelee.tw
+    depends_on:
+      - yourls
+    platform: linux/amd64
+  
+  nginx:
+    image: nginx:1.25.2-alpine
+    hostname: nginx
+    container_name: nginx
+    restart: unless-stopped
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./certbot/conf:/etc/letsencrypt
+      - ./yourls:/var/www/html
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - yourls
+      - certbot
+    platform: linux/amd64
