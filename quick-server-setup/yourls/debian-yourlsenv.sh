@@ -81,11 +81,10 @@ printf "\nnetmask 255.255.255.0" | sudo tee -a /etc/network/interfaces
 printf "\ngateway 192.168.50.254" | sudo tee -a /etc/network/interfaces
 printf "\ndns-nameservers 192.168.51.53" | sudo tee -a /etc/network/interfaces
 
-# # Install Certbot
-# echo "Installing certbot..."
-# # - Install snapd
-# sudo apt install snapd -y
-# # - Install certbot
-# sudo snap install --classic certbot
-# # - Prepare the Certbot command
-# sudo ln -s /snap/bin/certbot /usr/bin/certbot
+# Pull Need files
+echo "Pulling need files..."
+mkdir ~/yourls
+mkdir -p ~/yourls/nginx/conf.d
+cd ~/yourls || exit
+curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-server-setup/yourls/compose.yml -o ~/yourls/compose.yml
+curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-server-setup/yourls/nginx/conf.d/yourls.conf -o ~/yourls/nginx/conf.d/yourls.conf
