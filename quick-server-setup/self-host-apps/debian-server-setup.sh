@@ -1,10 +1,5 @@
 #!/bin/sh
 
-# Export command from sbin to path in .bashrc
-echo "Exporting command from sbin to path in .bashrc..."
-echo "export PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin" >>~/.bashrc
-export PATH="$PATH":/usr/sbin
-
 # Update the system
 echo "Updating apt packages..."
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
@@ -63,7 +58,7 @@ sudo cp /etc/network/interfaces /etc/network/interfaces.dhcp.bk
 # - Change interfaces file
 sudo sed -i 's/allow-hotplug ens18/auto ens18/g' /etc/network/interfaces
 sudo sed -i 's/iface ens18 inet dhcp/iface ens18 inet static/g' /etc/network/interfaces
-printf "\naddress 192.168.50.200" | sudo tee -a /etc/network/interfaces
+printf "\naddress 192.168.50.240" | sudo tee -a /etc/network/interfaces
 printf "\nnetmask 255.255.255.0" | sudo tee -a /etc/network/interfaces
 printf "\ngateway 192.168.50.254" | sudo tee -a /etc/network/interfaces
 printf "\ndns-nameservers 192.168.51.53" | sudo tee -a /etc/network/interfaces
