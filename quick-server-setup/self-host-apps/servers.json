@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Main server",
+        "url": "https://links.crazyfirelee.tw"
+    },
+    {
+        "name": "Local",
+        "url": "http://localhost:8081"
+    }
+]

@@ -23,20 +23,20 @@ services:
     platform: linux/amd64
 
   # Use https://app.shlink.io/ for web client
-  # shlink-web-client:
-  #   image: shlinkio/shlink-web-client:3.10.2
-  #   hostname: shlink-web-client
-  #   container_name: shlink-web-client
-  #   restart: unless-stopped
-  #   ports:
-  #     - 8081:80
-  #   expose:
-  #     - 80:80
-  #   volumes:
-  #     - ./shlink/servers.json:/usr/share/nginx/html/servers.json
-  #   depends_on:
-  #     - shlink
-  #   platform: linux/amd64
+  shlink-web-client:
+    image: shlinkio/shlink-web-client:3.10.2
+    hostname: shlink-web-client
+    container_name: shlink-web-client
+    restart: unless-stopped
+    ports:
+      - 8081:80
+    expose:
+      - 80:80
+    volumes:
+      - ./shlink/servers.json:/usr/share/nginx/html/servers.json
+    depends_on:
+      - shlink
+    platform: linux/amd64
 
   shlink-db:
     image: mariadb:10.9.8
@@ -59,7 +59,7 @@ services:
     container_name: qrcode-generator
     restart: unless-stopped
     ports:
-      - 8081:80
+      - 8082:80
     expose:
       - 80:80
     platform: linux/amd64
