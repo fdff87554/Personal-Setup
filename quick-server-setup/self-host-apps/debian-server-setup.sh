@@ -68,7 +68,9 @@ echo "Getting docker-compose files..."
 mkdir apps
 cd apps || exit
 curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-server-setup/self-host-apps/compose.yml -o ./compose.yml
-mkdir 
+curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-server-setup/self-host-apps/example.env -o ./.env
+mkdir shlink
+curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-server-setup/self-host-apps/servers.json -o ./shlink/servers.json
 
 docker compose up -d
 
