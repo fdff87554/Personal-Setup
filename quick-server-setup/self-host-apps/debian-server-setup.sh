@@ -22,7 +22,7 @@ curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/ssh/id_r
 # - Create .ssh folder if not exist
 mkdir ~/.ssh
 touch ~/.ssh/authorized_keys
-cat ~/crazyfire_id_rsa.pub >>~/.ssh/authorized_keys
+cat ~/crazyfire_id_rsa.pub >> ~/.ssh/authorized_keys
 rm ~/crazyfire_id_rsa.pub
 
 sudo systemctl restart ssh
@@ -62,3 +62,28 @@ printf "\naddress 192.168.50.240" | sudo tee -a /etc/network/interfaces
 printf "\nnetmask 255.255.255.0" | sudo tee -a /etc/network/interfaces
 printf "\ngateway 192.168.50.254" | sudo tee -a /etc/network/interfaces
 printf "\ndns-nameservers 192.168.51.53" | sudo tee -a /etc/network/interfaces
+
+# Get Docker Compose files
+echo "Getting docker-compose files..."
+mkdir apps
+cd apps || exit
+curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-server-setup/self-host-apps/compose.yml -o ./compose.yml
+
+docker compose up -d
+
+cd ~ || exit
+
+# Setup Nginx and Certbot
+sudo apt update
+sudo apt install -y nginx certbot python3-certbot-nginx
+
+# - Setup Nginx
+sudo curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-server-setup/self-host-apps/services.conf -o /etc/nginx/sites-available/services.conf
+sudo ln -s /etc/nginx/sites-available/services.conf /etc/nginx/sites-enabled/
+sudo nginx -t
+
+sudo systemctl reload nginx.service
+
+# - Get SSL certificate
+sudo certbot --nginx -d links.crazyfirelee.tw
+sudo certbot --nginx -d qrcode.crazyfirelee.tw
