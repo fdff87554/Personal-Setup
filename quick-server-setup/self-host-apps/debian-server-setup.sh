@@ -73,6 +73,10 @@ docker compose up -d
 
 cd ~ || exit
 
+# Wait for 1 minute for the apps to start
+echo "Waiting for 1 minute for the apps to start..."
+sleep 60
+
 # Setup Nginx and Certbot
 sudo apt update
 sudo apt install -y nginx certbot python3-certbot-nginx
