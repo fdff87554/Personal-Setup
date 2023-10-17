@@ -9,15 +9,15 @@ services:
     expose:
       - 80:8080
     environment:
-      - DEFAULT_DOMAIN=https://links.crazyfirelee.tw
+      - DEFAULT_DOMAIN=${SHLINK_DEFAULT_DOMAIN}
       - IS_HTTPS_ENABLED=true
-      - GEOLITE_LICENSE_KEY=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
-      - DB_DRIVER=maria
-      - DB_NAME=shlink
-      - DB_USER=shlink
-      - DB_PASSWORD=shlink
+      - GEOLITE_LICENSE_KEY=${GEOLITE_LICENSE_KEY}
+      - DB_DRIVER=${SHLINK_DB_DRIVER}
+      - DB_NAME=${SHLINK_DB_NAME}
+      - DB_USER=${SHLINK_DB_USER}
+      - DB_PASSWORD=${SHLINK_DB_PASSWORD}
       - DB_HOST=shlink-db
-      - DB_PORT=3306
+      - DB_PORT=${SHLINK_DB_PORT}
     depends_on:
       - shlink-db
     platform: linux/amd64
@@ -43,11 +43,13 @@ services:
     hostname: shlink-db
     container_name: shlink-db
     restart: unless-stopped
+    ports:
+      - ${SHLINK_DB_PORT}:3306
     environment:
-      - MYSQL_ROOT_PASSWORD=shlink
-      - MYSQL_DATABASE=shlink
-      - MYSQL_USER=shlink
-      - MYSQL_PASSWORD=shlink
+      - MYSQL_ROOT_PASSWORD=${SHLINK_DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${SHLINK_DB_NAME}
+      - MYSQL_USER=${SHLINK_DB_USER}
+      - MYSQL_PASSWORD=${SHLINK_DB_PASSWORD}
     volumes:
       - ./shlink/database/data:/var/lib/mysql
       - ./shlink/database/backup:/var/backup
