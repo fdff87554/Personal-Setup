@@ -1,38 +1,56 @@
 services:
-  yourls:
-    image: yourls:1.9.2-apache
-    hostname: yourls
-    container_name: yourls
+  shlink:
+    image: shlinkio/shlink:3.6-openswoole
+    hostname: shlink
+    container_name: shlink
     restart: unless-stopped
     ports:
-      - 8080:80
+      - 8080:8080
     expose:
-      - 80:80
+      - 80:8080
     environment:
-      - YOURLS_DB_USER=yourls
-      - YOURLS_DB_PASS=yourls
-      - YOURLS_DB_NAME=yourls
-      - YOURLS_DB_HOST=yourls-db
-      - YOURLS_SITE=https://links.crazyfirelee.tw
-      - YOURLS_USER=admin
-      - YOURLS_PASS=admin
+      - DEFAULT_DOMAIN=https://links.crazyfirelee.tw
+      - IS_HTTPS_ENABLED=true
+      - GEOLITE_LICENSE_KEY=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
+      - DB_DRIVER=maria
+      - DB_NAME=shlink
+      - DB_USER=shlink
+      - DB_PASSWORD=shlink
+      - DB_HOST=shlink-db
+      - DB_PORT=3306
     depends_on:
-      - yourls-db
+      - shlink-db
     platform: linux/amd64
 
-  yourls-db:
+  # Use https://app.shlink.io/ for web client
+  # shlink-web-client:
+  #   image: shlinkio/shlink-web-client:3.10.2
+  #   hostname: shlink-web-client
+  #   container_name: shlink-web-client
+  #   restart: unless-stopped
+  #   ports:
+  #     - 8081:80
+  #   expose:
+  #     - 80:80
+  #   volumes:
+  #     - ./shlink/servers.json:/usr/share/nginx/html/servers.json
+  #   depends_on:
+  #     - shlink
+  #   platform: linux/amd64
+
+  shlink-db:
     image: mariadb:10.9.8
-    hostname: yourls-db
-    container_name: yourls-db
+    hostname: shlink-db
+    container_name: shlink-db
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=yourls
-      - MYSQL_DATABASE=yourls
-      - MYSQL_USER=yourls
-      - MYSQL_PASSWORD=yourls
+      - MYSQL_ROOT_PASSWORD=shlink
+      - MYSQL_DATABASE=shlink
+      - MYSQL_USER=shlink
+      - MYSQL_PASSWORD=shlink
     volumes:
-      - ./yourls-db/data:/var/lib/mysql
-      - ./yourls-db/backup:/var/backup
+      - ./shlink/database/data:/var/lib/mysql
+      - ./shlink/database/backup:/var/backup
     platform: linux/amd64
 
   qrcode-generator:
@@ -46,32 +64,68 @@ services:
       - 80:80
     platform: linux/amd64
 
-  nginx:
-    image: nginx:1.25.2-alpine
-    hostname: nginx-proxy
-    container_name: nginx-proxy
-    restart: on-failure
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - /etc/letsencrypt:/etc/letsencrypt
-      - ./certbot:/var/www/certbot
-    depends_on:
-      - yourls
-      - qrcode-generator
-    platform: linux/amd64
+  # yourls:
+  #   image: yourls:1.9.2-apache
+  #   hostname: yourls
+  #   container_name: yourls
+  #   restart: unless-stopped
+  #   ports:
+  #     - 8080:80
+  #   expose:
+  #     - 80:80
+  #   environment:
+  #     - YOURLS_DB_USER=yourls
+  #     - YOURLS_DB_PASS=yourls
+  #     - YOURLS_DB_NAME=yourls
+  #     - YOURLS_DB_HOST=yourls-db
+  #     - YOURLS_SITE=https://links.crazyfirelee.tw
+  #     - YOURLS_USER=admin
+  #     - YOURLS_PASS=admin
+  #   depends_on:
+  #     - yourls-db
+  #   platform: linux/amd64
 
-  certbot:
-    image: certbot/certbot:latest
-    hostname: certbot
-    container_name: certbot
-    restart: on-failure
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt
-      - /var/lib/letsencrypt:/var/lib/letsencrypt
-      - ./certbot:/var/www/certbot
-    command: sh -c "certonly --webroot --webroot-path=/var/www/certbot --email test@crazyfirelee.tw -d links.crazyfirelee.tw --agree-tos --no-eff-email ; certonly --webroot --webroot-path=/var/www/certbot --email test@crazyfirelee.tw -d qrcode.crazyfirelee.tw --agree-tos --no-eff-email"
-    depends_on:
-      - nginx
+  # yourls-db:
+  #   image: mariadb:10.9.8
+  #   hostname: yourls-db
+  #   container_name: yourls-db
+  #   restart: unless-stopped
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=yourls
+  #     - MYSQL_DATABASE=yourls
+  #     - MYSQL_USER=yourls
+  #     - MYSQL_PASSWORD=yourls
+  #   volumes:
+  #     - ./yourls-db/data:/var/lib/mysql
+  #     - ./yourls-db/backup:/var/backup
+  #   platform: linux/amd64
+
+  # nginx:
+  #   image: nginx:1.25.2-alpine
+  #   hostname: nginx-proxy
+  #   container_name: nginx-proxy
+  #   restart: on-failure
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   volumes:
+  #     - ./nginx/conf.d:/etc/nginx/conf.d
+  #     - /etc/letsencrypt:/etc/letsencrypt
+  #     - ./certbot:/var/www/certbot
+  #   depends_on:
+  #     - yourls
+  #     - qrcode-generator
+  #   platform: linux/amd64
+
+  # certbot:
+  #   image: certbot/certbot:latest
+  #   hostname: certbot
+  #   container_name: certbot
+  #   restart: on-failure
+  #   volumes:
+  #     - /etc/letsencrypt:/etc/letsencrypt
+  #     - /var/lib/letsencrypt:/var/lib/letsencrypt
+  #     - ./certbot:/var/www/certbot
+  #   command: sh -c "certonly --webroot --webroot-path=/var/www/certbot --email test@crazyfirelee.tw -d links.crazyfirelee.tw --agree-tos --no-eff-email ; certonly --webroot --webroot-path=/var/www/certbot --email test@crazyfirelee.tw -d qrcode.crazyfirelee.tw --agree-tos --no-eff-email"
+  #   depends_on:
+  #     - nginx
