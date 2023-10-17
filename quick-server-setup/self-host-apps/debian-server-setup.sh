@@ -72,6 +72,11 @@ curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-se
 mkdir shlink
 curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/quick-server-setup/self-host-apps/servers.json -o ./shlink/servers.json
 
+# Wait for 1 minute for the env settings
+echo "Waiting for 1 minute for the env settings..."
+sleep 60
+echo "Starting docker-compose..."
+
 docker compose up -d
 
 cd ~ || exit
