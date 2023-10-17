@@ -22,7 +22,7 @@ curl -L https://raw.githubusercontent.com/fdff87554/Personal-Setup/main/ssh/id_r
 # - Create .ssh folder if not exist
 mkdir ~/.ssh
 touch ~/.ssh/authorized_keys
-cat ~/crazyfire_id_rsa.pub >> ~/.ssh/authorized_keys
+cat ~/crazyfire_id_rsa.pub >>~/.ssh/authorized_keys
 rm ~/crazyfire_id_rsa.pub
 
 sudo systemctl restart ssh
