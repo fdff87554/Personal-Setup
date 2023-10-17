@@ -21,8 +21,8 @@ services:
     depends_on:
       - shlink-db
     platform: linux/amd64
+    # use docker exec -it shlink shlink api-key:generate
 
-  # Use https://app.shlink.io/ for web client
   shlink-web-client:
     image: shlinkio/shlink-web-client:3.10.2
     hostname: shlink-web-client
