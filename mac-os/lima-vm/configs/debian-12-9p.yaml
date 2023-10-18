@@ -1,0 +1,43 @@
+arch: "x86_64"
+
+images:
+# Try to use release-yyyyMMdd image if available. Note that release-yyyyMMdd will be removed after several months.
+- location: "https://cloud.debian.org/images/cloud/bookworm/20231013-1532/debian-12-generic-amd64-20231013-1532.qcow2"
+  arch: "x86_64"
+  digest: "sha256:4cce9d969bf9c99b1b0b37ce2da9bfdd78f2c0b17314a29e9bfbeffed84cf9fd"
+- location: "https://cloud.debian.org/images/cloud/bookworm/20231013-1532/debian-12-generic-arm64-20231013-1532.qcow2"
+  arch: "aarch64"
+  digest: "sha256:2414e73c07688bd8e760031562ae70ea3dcd54f02baf2357ade04602e5a4638a"
+# Fallback to the latest release image.
+# Hint: run `limactl prune` to invalidate the cache
+- location: "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2"
+  arch: "x86_64"
+- location: "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-arm64.qcow2"
+  arch: "aarch64"
+
+# CPUs
+# 🟢 Builtin default: min(4, host CPU cores)
+cpus: 4
+
+# Memory size
+# 🟢 Builtin default: min("4GiB", half of host memory)
+memory: "4GiB"
+
+# Disk size
+# 🟢 Builtin default: "100GiB"
+disk: "100GiB"
+
+
+mountType: "9p"
+mounts:
+- location: "~"
+  9p:
+    msize: "1024KiB"
+- location: "~/Works"
+  writable: true
+  9p:
+    msize: "1024KiB"
+- location: "/tmp/lima"
+  writable: true
+  9p:
+    msize: "1024KiB"
