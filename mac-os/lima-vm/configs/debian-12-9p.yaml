@@ -4,10 +4,10 @@ images:
 # Try to use release-yyyyMMdd image if available. Note that release-yyyyMMdd will be removed after several months.
 - location: "https://cloud.debian.org/images/cloud/bookworm/20231013-1532/debian-12-generic-amd64-20231013-1532.qcow2"
   arch: "x86_64"
-  digest: "sha256:4cce9d969bf9c99b1b0b37ce2da9bfdd78f2c0b17314a29e9bfbeffed84cf9fd"
+  digest: "sha512:b2ddc01e8d13dabbcfde6661541aae92219be2d442653950f0e44613ddebaeb80dc7a83e0202c5509c5e72f4bd1f4edee4c83f35191f2562b3f31e20e9e87ec2"
 - location: "https://cloud.debian.org/images/cloud/bookworm/20231013-1532/debian-12-generic-arm64-20231013-1532.qcow2"
   arch: "aarch64"
-  digest: "sha256:2414e73c07688bd8e760031562ae70ea3dcd54f02baf2357ade04602e5a4638a"
+  digest: "sha512:7384741cf214cb789acd84e2c67128a83d1c7995b5b5118190d50cf19a13e3c4169c268ad13e36763d84f8602edd44857cd4597ae1b190f47c8789a8acd97bbc"
 # Fallback to the latest release image.
 # Hint: run `limactl prune` to invalidate the cache
 - location: "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2"
