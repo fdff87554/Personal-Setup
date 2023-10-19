@@ -1,0 +1,30 @@
+arch: "x86_64"
+
+images:
+# Try to use release-yyyyMMdd image if available. Note that release-yyyyMMdd will be removed after several months.
+- location: "https://cloud-images.ubuntu.com/releases/22.04/release-20230616/ubuntu-22.04-server-cloudimg-amd64.img"
+  arch: "x86_64"
+  digest: "sha256:fe102bfb3d3d917d31068dd9a4bd8fcaeb1f529edda86783f8524fdc1477ee29"
+- location: "https://cloud-images.ubuntu.com/releases/22.04/release-20230616/ubuntu-22.04-server-cloudimg-arm64.img"
+  arch: "aarch64"
+  digest: "sha256:67ae390ace5e2023a6e02e05a389ac38aa41e7fe6b8f2fdc963ff4420b36b2c1"
+# Fallback to the latest release image.
+# Hint: run `limactl prune` to invalidate the cache
+- location: "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
+  arch: "x86_64"
+- location: "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-arm64.img"
+  arch: "aarch64"
+
+mountType: "9p"
+mounts:
+- location: "~"
+  9p:
+    msize: "1024KiB"
+- location: "~/Works"
+  writable: true
+  9p:
+    msize: "1024KiB"
+- location: "/tmp/lima"
+  writable: true
+  9p:
+    msize: "1024KiB"
