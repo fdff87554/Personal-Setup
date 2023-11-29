@@ -42,6 +42,12 @@
 * `Hyper`: `brew install --cask hyper`
   * Solarized Dark Themes: `hyper i hyper-solarized-dark`
 
+#### Tools
+
+* `thefuck`: `brew install thefuck` - command fix tool
+* `btop`: `brew install btop` - system monitoring
+* `tldr`: `brew install tldr` - command example tool
+
 ### Look
 * Color: `Solarized Dark Higher Contrast`
 * https://github.com/romkatv/powerlevel10k
