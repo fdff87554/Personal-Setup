@@ -99,3 +99,4 @@ sudo systemctl reload nginx.service
 # - Get SSL certificate
 sudo certbot --nginx -d links.crazyfirelee.tw
 sudo certbot --nginx -d qrcode.crazyfirelee.tw
+sudo certbot --nginx -d cyberchef.crazyfirelee.tw

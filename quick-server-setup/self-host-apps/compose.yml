@@ -66,6 +66,17 @@ services:
       - 80:80
     platform: linux/amd64
 
+  cyberchef:
+    image: ghcr.io/gchq/cyberchef:latest
+    hostname: cyberchef
+    container_name: cyberchef
+    restart: unless-stopped
+    ports:
+      - 8083:80
+    expose:
+      - 80:80
+    platform: linux/amd64
+
   # yourls:
   #   image: yourls:1.9.2-apache
   #   hostname: yourls
