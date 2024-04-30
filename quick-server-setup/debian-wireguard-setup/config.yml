@@ -1,0 +1,22 @@
+advanced:
+  log_level: trace
+
+core:
+  # Username
+  admin_user: admin@crazyfirelee.tw
+  # Password
+  admin_password: example
+  editable_keys: true
+  create_default_peer: false
+  self_provisioning_allowed: false
+
+web:
+  # 請特別注意，這個 IP 需要與你實際操作的 IP 完全相同，才能登入成功。
+  external_url: http://192.168.50.109:8123
+  # 這個參數才會定義正確的 Port
+  listening_address: :8123
+  request_logging: true
+
+database:
+  type: sqlite
+  database: data/wg-portal.db

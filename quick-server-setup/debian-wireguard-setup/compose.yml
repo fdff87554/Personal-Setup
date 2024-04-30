@@ -1,0 +1,28 @@
+services:
+  # 創建一個名為 wg-portal 的容器
+  wg-portal:
+    # 使用 wg-portal 的 master version
+    image: wgportal/wg-portal:master
+    # 指定容器的名稱，這邊使用 wg-portal
+    container_name: wg-portal
+    # 設定重啟策略，這邊使用 unless-stopped，也就是當容器不是被手動停止時，就會自動重啟
+    restart: unless-stopped
+    # 設定容器的 log 紀錄設定
+    logging:
+      options:
+        # 設定 log 紀錄的最大行數
+        max-size: "10m"
+        # 設定 log 紀錄的最大檔案數
+        max-file: "3"
+    # 設定容器的環境變數
+    cap_add:
+      - NET_ADMIN
+    # 設定容器的網路設定，這邊使用 host 模式，也就是使用主機的網路設定
+    network_mode: host
+    # 設定容器的掛載設定，這邊使用主機的 /etc/wireguard 資料夾掛載到容器的 /etc/wireguard 資料夾
+    volumes:
+      - /etc/wireguard:/etc/wireguard
+      - ./data:/app/data
+      # V2 以後，config 檔案在 /app/config 目錄下，但 V1 為 /app 目錄下
+      - ./config.yml:/app/config/config.yml
+    platform: linux/amd64
