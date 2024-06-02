@@ -19,7 +19,7 @@ wget https://github.com/goharbor/harbor/releases/download/"$HARBOR_VERSION"/harb
 tar xzvf harbor-online-installer-"$HARBOR_VERSION".tgz
 
 # Create letsencrypt certificate
-sudo certbot certonly --standalone -d hub.hsnl.tw
+sudo certbot certonly --standalone -d hub.hsnl.tw -v
 
 # Modify harbor.yml
 cd harbor || exit
@@ -29,6 +29,7 @@ cp harbor.yml.tmpl harbor.yml
 # sed -i 's/certificate: \/your\/certificate\/path/certificate: \/etc\/letsencrypt\/live\/hub.hsnl.tw\/fullchain.pem/g' harbor.yml
 # sed -i 's/private_key: \/your\/private\/key\/path/private_key: \/etc\/letsencrypt\/live\/hub.hsnl.tw\/privkey.pem/g' harbor.yml
 # sed -i 's/harbor_admin_password: Harbor12345/harbor_admin_password: hsnl33564/g' harbor.yml
+# Add http: relativeurls: true to harbor.yml to fix the issue of retrying to push image
 # password: hsnl33564 for database
 
 # # Prepare the system
@@ -36,3 +37,5 @@ cp harbor.yml.tmpl harbor.yml
 
 # # Install Harbor
 # sudo ./install.sh
+
+/hostfs/etc/letsencrypt/live/hub.hsnl.tw/privkey.pem
