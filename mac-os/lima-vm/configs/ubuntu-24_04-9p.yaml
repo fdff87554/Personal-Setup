@@ -1,0 +1,42 @@
+arch: "x86_64"
+
+images:
+  # Try to use release-yyyyMMdd image if available. Note that release-yyyyMMdd will be removed after several months.
+  - location: "https://mirror.twds.com.tw/ubuntu-cloud-images/releases/24.04/release-20240821/ubuntu-24.04-server-cloudimg-amd64.img"
+    arch: "x86_64"
+    digest: "sha256:0e25ca6ee9f08ec5d4f9910054b66ae7163c6152e81a3e67689d89bd6e4dfa69"
+  - location: "https://mirror.twds.com.tw/ubuntu-cloud-images/releases/24.04/release-20240821/ubuntu-24.04-server-cloudimg-arm64.img"
+    arch: "aarch64"
+    digest: "sha256:5ecac6447be66a164626744a87a27fd4e6c6606dc683e0a233870af63df4276a"
+  # Fallback to the latest release image.
+  # Hint: run `limactl prune` to invalidate the cache
+  - location: "https://mirror.twds.com.tw/ubuntu-cloud-images/releases/24.04/release/ubuntu-24.04-server-cloudimg-amd64.img"
+    arch: "x86_64"
+  - location: "https://mirror.twds.com.tw/ubuntu-cloud-images/releases/24.04/release/ubuntu-24.04-server-cloudimg-arm64.img"
+    arch: "aarch64"
+
+# CPUs
+# 🟢 Builtin default: min(4, host CPU cores)
+cpus: 4
+
+# Memory size
+# 🟢 Builtin default: min("4GiB", half of host memory)
+memory: "4GiB"
+
+# Disk size
+# 🟢 Builtin default: "100GiB"
+disk: "100GiB"
+
+mountType: "9p"
+mounts:
+  - location: "~"
+    9p:
+      msize: "1024KiB"
+  - location: "~/Files"
+    writable: true
+    9p:
+      msize: "1024KiB"
+  - location: "/tmp/lima"
+    writable: true
+    9p:
+      msize: "1024KiB"
