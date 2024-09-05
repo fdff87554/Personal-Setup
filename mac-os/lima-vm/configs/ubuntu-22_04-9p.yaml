@@ -1,30 +1,42 @@
 arch: "x86_64"
 
 images:
-# Try to use release-yyyyMMdd image if available. Note that release-yyyyMMdd will be removed after several months.
-- location: "https://cloud-images.ubuntu.com/releases/22.04/release-20230616/ubuntu-22.04-server-cloudimg-amd64.img"
-  arch: "x86_64"
-  digest: "sha256:fe102bfb3d3d917d31068dd9a4bd8fcaeb1f529edda86783f8524fdc1477ee29"
-- location: "https://cloud-images.ubuntu.com/releases/22.04/release-20230616/ubuntu-22.04-server-cloudimg-arm64.img"
-  arch: "aarch64"
-  digest: "sha256:67ae390ace5e2023a6e02e05a389ac38aa41e7fe6b8f2fdc963ff4420b36b2c1"
-# Fallback to the latest release image.
-# Hint: run `limactl prune` to invalidate the cache
-- location: "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
-  arch: "x86_64"
-- location: "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-arm64.img"
-  arch: "aarch64"
+  # Try to use release-yyyyMMdd image if available. Note that release-yyyyMMdd will be removed after several months.
+  - location: "https://mirror.twds.com.tw/ubuntu-cloud-images/releases/22.04/release-20240821/ubuntu-22.04-server-cloudimg-amd64.img"
+    arch: "x86_64"
+    digest: "sha256:b69b78fe55ede8185227a631d20103e3e37be92bb9ea10af6fd4dd1c005b834d"
+  - location: "https://mirror.twds.com.tw/ubuntu-cloud-images/releases/22.04/release-20240821/ubuntu-22.04-server-cloudimg-arm64.img"
+    arch: "aarch64"
+    digest: "sha256:4a02451b835f405dfcec6564a1c3cdd1008e699a6b1f17b6b61dcd5175bbf8b0"
+  # Fallback to the latest release image.
+  # Hint: run `limactl prune` to invalidate the cache
+  - location: "https://mirror.twds.com.tw/ubuntu-cloud-images/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
+    arch: "x86_64"
+  - location: "https://mirror.twds.com.tw/ubuntu-cloud-images/releases/22.04/release/ubuntu-22.04-server-cloudimg-arm64.img"
+    arch: "aarch64"
+
+# CPUs
+# 🟢 Builtin default: min(4, host CPU cores)
+cpus: 4
+
+# Memory size
+# 🟢 Builtin default: min("4GiB", half of host memory)
+memory: "4GiB"
+
+# Disk size
+# 🟢 Builtin default: "100GiB"
+disk: "100GiB"
 
 mountType: "9p"
 mounts:
-- location: "~"
-  9p:
-    msize: "1024KiB"
-- location: "~/Works"
-  writable: true
-  9p:
-    msize: "1024KiB"
-- location: "/tmp/lima"
-  writable: true
-  9p:
-    msize: "1024KiB"
+  - location: "~"
+    9p:
+      msize: "1024KiB"
+  - location: "~/Files"
+    writable: true
+    9p:
+      msize: "1024KiB"
+  - location: "/tmp/lima"
+    writable: true
+    9p:
+      msize: "1024KiB"
